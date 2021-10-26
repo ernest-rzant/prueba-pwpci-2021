@@ -1,0 +1,23 @@
+{
+  "name": "pwpc-1",
+  "version": "0.0.1",
+  "description": "Proyecto de programacion web en pc1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ernest-rzant/prueba-pwpci-2021.git"
+  },
+  "keywords": [
+    "FullStack",
+    "node"
+  ],
+  "author": "@ernest_rzant",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ernest-rzant/prueba-pwpci-2021/issues"
+  },
+  "homepage": "https://github.com/ernest-rzant/prueba-pwpci-2021#readme"
+}
