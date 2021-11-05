@@ -7,25 +7,45 @@ import { platform } from 'os';
 // ante cualquier peticion de un recurso a nuestro server
 // (request, response)
 const server = http.createServer((req, res)=>{
+    // Obteniendo el recurso solicitado
+    let { url, method } = req;
+
     // Informa en la consola del servidor que se recibe una peticion
-    console.log("Se ha recibido una peticion.");
+    console.log(`Se ha solicitadoi el siguiente recurso: ${method} : ${url}`);
 
-    // Registrar informacion de la peticion
-    console.log("==>> Informacion de la peticion");
-    console.log(`=> url: ${req.url}`);
-    console.log(`=> Request Method: ${req.method}`);
+    // Filtrar la url
+    if(url === '/'){
+        // Respuesta ante "Get /"
+        // 1. Estableciendo el tipo de retorno
+        // como HTML
+        res.setHeader('Content-Type', 'text/html');
 
-    // Establecer el tipo de contenido que se entregara al cliente
-    res.setHeader('Content-Type', 'text/html');
+        // 2. Escribiendo la respuesta
+        res.write("<html>");
+        res.write("<head><title>My App</title></head>");
+        res.write(`<body><h1>Hello from the server ;)</h1></body>`);
+        res.write("</html>");
 
-    // Envio el contenido
-    res.write("<html>");
-    res.write("<head><title>My App</title></head>");
-    res.write(`<body><h1>Hello from the server ;)</h1><p style="color:red">Recurso solicitado: ${req.url}</p></body>`);
-    res.write("</html>");
+        // Cerrando conexion
+        res.end();
+    }else{
+        // Se registra el Recurso no encontrado
+        // Recurso no encontrado
+        console.log(`No se ha encontrado el recurso: ${url}`);
 
-    // Terminar la conexion
-    res.end();
+        // 1. Estableciendo el tipo de retorno
+        // como HTML
+        res.setHeader('Content-Type', 'text/html');
+
+        // Escribiendo la respuesta
+        res.write("<html>");
+        res.write("<head><title>My App</title></head>");
+        res.write(`<body><h1>Error: 404 ~ Recurso no enconmtrado</h1></body>`);
+        res.write("</html>");
+
+        // Cerrando conexion
+        res.end();
+    }
 });
 
 // 3.- Pongo a trabajar el servidor
