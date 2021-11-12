@@ -1,6 +1,7 @@
 //1.- Importar el modulo http
 import http from 'http';
 import { platform } from 'os';
+import fs from "fs";
 
 // 2.- Crear servidor
 // cb (callback) es una *funcion* que se ejecutara
@@ -59,21 +60,14 @@ const server = http.createServer((req, res) => {
             const parsedBody = Buffer.concat(body).toString();
             const message = parsedBody.split('=')[1];
             
-            // Estableciendo el tipo de retorno
-            // como HTML
-            res.setHeader('Content-Type', 'text/html');
-            res.write(`
-            <html>
-                <head>
-                <title>Received message</title>
-                </head>
-            <body>
-                <h1>Received Message</h1>
-                <p>Thank you!!</p>
-                <p>The mesaage we received was this: ${message}</p>
-            </body>
-            </html>
-            `);
+            // Guardando el mensaje en un archivo
+            fs.writeFileSync('message.txt', message);
+            
+            // Establecer el status code de redireccionamiento
+            res.statusCode = 302;
+
+            // Establecer la ruta de direcciones
+            res.setHeader('Location', '/');
 
             // Finalizo la conexion
             return res.end();
@@ -82,7 +76,7 @@ const server = http.createServer((req, res) => {
 
     } else if(url === '/author'){
         // Respuesta ante "Get /"    
-        // 1. Estableciendo el tipo de retorno    
+        // 1. Estableciendo el tipo de retorno 
         // como HTML    
         res.setHeader('Content-Type', 'text/html');
         let url_image = 'https://avatars.githubusercontent.com/u/92902557?v=4';
