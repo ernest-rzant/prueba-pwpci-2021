@@ -61,17 +61,25 @@ const server = http.createServer((req, res) => {
             const message = parsedBody.split('=')[1];
             
             // Guardando el mensaje en un archivo
-            fs.writeFileSync('message.txt', message);
-            
-            // Establecer el status code de redireccionamiento
-            res.statusCode = 302;
+            fs.writeFile('message.txt', message, (err) => {
+                // Verificar si hubo error
+                if (err) {
+                    console.log("> No se pudo grabar el archivo");
+                    res.statusCode = 500; // Internal Server Error
+                    res.setHeader('Content-Type', 'text/html');
+                    res.write("ERROR WHEN LOADING FILE")
+                    return res.end();
+                }
+                // En caso de no haber error
+                // Establecer el status code de redireccionamiento
+                res.statusCode = 302;
 
-            // Establecer la ruta de direcciones
-            res.setHeader('Location', '/');
+                // Establecer la ruta de direcciones
+                res.setHeader('Location', '/');
 
-            // Finalizo la conexion
-            return res.end();
-            
+                // Finalizo la conexion
+                return res.end();
+                })
         })
 
     } else if(url === '/author'){
