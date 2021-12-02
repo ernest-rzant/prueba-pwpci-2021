@@ -1,5 +1,5 @@
 // 1.- Importar el modulo http
-import http from 'http';
+// import http from 'http';
 import { platform } from 'os';
 
 // 2.- Importando el module de routes
@@ -41,7 +41,7 @@ app.use('/add-student-form', (_, res) => {
 });
 
 // Ruta que procesa el formulario
-app.use('/add-student', (req, res,next) => {
+app.post('/add-student', (req, res,next) => {
     // Iterando sobre todo el objeto
     for(const prop in req.body){
         console.log(`>> ${prop}: ${req.body[prop]}`);
