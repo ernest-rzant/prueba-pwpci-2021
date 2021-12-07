@@ -2,7 +2,7 @@
   "name": "pwpc-1",
   "version": "0.0.1",
   "description": "Proyecto de programacion web en pc1",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "start": "echo \"Iniciando Programa...\" && cross-env NODE_ENV=production node server/main.js",
     "dev": "cross-env NODE_ENV=development nodemon server/main.js",
