@@ -5,6 +5,8 @@ import Express from 'express';
 // para trabajar con rutas absolutas
 import path from 'path';
 
+// Importando Helper
+import { ROOT_DIR } from './helpers/path.helper.js';
 
 // Importar enrutadores
 import adminRoute from './routes/admin.route.js';
@@ -33,7 +35,7 @@ app.use(homeRoute);
 
 // 404 error page
 app.use((_, res,) => {
-    const file404 = path.join(path.resolve(), "server", "views", "404.html");
+    const file404 = path.join(ROOT_DIR, "server", "views", "404.html");
     res.sendFile(file404);
 });
 

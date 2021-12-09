@@ -5,6 +5,9 @@ import { Router } from "express";
 // para trabajar con rutas absolutas
 import path from 'path';
 
+// Importando Helper
+import { ROOT_DIR } from "../helpers/path.helper.js";
+
 // 2.- Crear uns instancia del enrutador
 const router = Router();
 
@@ -12,7 +15,7 @@ const router = Router();
 // Sirve el formulario para agregar productos
 // GET: /admin/add-product
 router.get('/add-product', (_, res) => {
-    const fileAdd = path.join(path.resolve(), "server", "views", "add.product.html");
+    const fileAdd = path.join(ROOT_DIR, "server", "views", "add.product.html");
     res.sendFile(fileAdd);
 });
 
