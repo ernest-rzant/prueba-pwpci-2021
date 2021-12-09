@@ -1,6 +1,10 @@
 // 1.- Importando el enrutador de EXpress
 import { Router } from "express";
 
+// Importando el modulo Path de node
+// para trabajar con rutas absolutas
+import path from 'path';
+
 // 2.- Crear uns instancia del enrutador
 const router = Router();
 
@@ -8,12 +12,8 @@ const router = Router();
 // Sirve el formulario para agregar productos
 // GET: /admin/add-product
 router.get('/add-product', (_, res) => {
-    res.send(`
-    <form action="add-product" method="POST">
-    <label for="productt-name">Nombre de producto</label>
-    <input type="text" name="name" id="product-name">
-    <button type="submit">Agregar producto</button>
-    `);
+    const fileAdd = path.join(path.resolve(), "server", "views", "add.product.html");
+    res.sendFile(fileAdd);
 });
 
 // Procesa el formulario para agregar productos

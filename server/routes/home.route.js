@@ -10,8 +10,8 @@ const router = Router();
 // Se debe colocar primero  ya que el orden de registro
 // determina el orden de verificacion
 router.get('/about', (_, res) => {
-    // Registrar un mensaje en el log
-    res.send("<h1>Acerca de ...</h1>\n Sitio inicial hecho con NodeJs");
+    const fileAbout = path.join(path.resolve(), "server", "views", "about.html");
+    res.sendFile(fileAbout);
 });
 
 // La ruta raiz entra en todo tipo de peticion

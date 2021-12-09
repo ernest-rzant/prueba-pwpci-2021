@@ -1,6 +1,11 @@
 // Importando express
 import Express from 'express';
 
+// Importando el modulo Path de node
+// para trabajar con rutas absolutas
+import path from 'path';
+
+
 // Importar enrutadores
 import adminRoute from './routes/admin.route.js';
 import homeRoute from './routes/home.route.js';
@@ -27,8 +32,9 @@ app.use('/admin', adminRoute);
 app.use(homeRoute);
 
 // 404 error page
-app.use((req, res, next) => {
-    res.status(404).send(`<h1>Recurso no encontrado</h1>`);
+app.use((_, res,) => {
+    const file404 = path.join(path.resolve(), "server", "views", "404.html");
+    res.sendFile(file404);
 });
 
 // Poniendo a escuchar la app express
