@@ -7,6 +7,9 @@ import path from 'path';
 // Importando Helper
 import { ROOT_DIR } from "../helpers/path.helper.js";
 
+// Importando el acceso a los datos
+import { products } from "./admin.route.js";
+
 // 2.- Crear uns instancia del enrutador
 const router = Router();
 
@@ -19,6 +22,7 @@ router.get('/about', (_, res) => {
 
 // La ruta raiz entra en todo tipo de peticion
 router.get(['/', '/home'], (_, res) => {
+    console.log(`📔 Inventario de productos: ${JSON.stringify(products)}`);
     const filePath = path.join(ROOT_DIR, "server", "views", "shop.html");
     res.sendFile(filePath);
 });
