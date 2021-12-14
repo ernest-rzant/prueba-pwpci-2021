@@ -6,6 +6,15 @@ import Express from 'express';
 // para trabajar con rutas absolutas
 import path from 'path';
 
+// Importando motor de plantillas
+import { engine } from 'express-handlebars';
+
+// Creando la instancia del motor de plantillas
+const hbsTemplateEngine = engine({
+    extname: ".hbs",
+    defaultLayout: "main",
+});
+
 // Importando Helper
 import { ROOT_DIR } from './helpers/path.helper.js';
 
@@ -18,13 +27,22 @@ console.log(`Variable de entorno: ${process.env.NODE_ENV}`);
 // Crear instancia de Express
 const app = Express();  // (req, res, next) => {} event handler
 
+// Registro el motor de las plantillas
+app.engine('hbs', hbsTemplateEngine);
+
+// Seleccionar en la app el motor a utilizar
+app.set('view engine', "hbs");
+
+// Establecer las rutas de las vistas
+app.set('views', path.join(ROOT_DIR, 'server', 'views'));
+
 // 1.- Insertando Middleware para la lectura de datos
 // desde un cliente
 app.use(Express.urlencoded({extended: false}));
 
 // Loggin de peticiones
 app.use((req, _, next) => {
-    console.log(`=> Se ha realizado la peticion: "${req.method} : ${req.path}"`);
+    console.log(`📲 Se ha realizado la peticion: "${req.method} : ${req.path}"`);
     next();
 });
 
@@ -40,8 +58,8 @@ app.use(homeRoute);
 
 // 404 error page
 app.use((_, res,) => {
-    const file404 = path.join(ROOT_DIR, "server", "views", "404.html");
-    res.sendFile(file404);
+    console.log("📓 Sirviendo recurso: '404.html'");
+    res.render('404');
 });
 
 // Poniendo a escuchar la app express
